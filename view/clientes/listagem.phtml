@@ -5,7 +5,7 @@ $layout = $baseView->get('layout');
 $baseView->render($layout['cabecalho'], false);
  
 $clientes = $baseView->get('clientes');
-if (empty($clientes)) {
+if (mysqli_num_rows($clientes) < 1) {
 ?>
     <head>    
         <head>
