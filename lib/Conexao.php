@@ -8,35 +8,43 @@ class Conexao
    // Não vou colocar em um arquivo externo para ganhar tempo 
     private $settings = array(
         'database' => array(
-            'host' => '187.45.196.210',
-            'login' => 'agenciainflue2',
-            'password' => 'Senha4t56#@',
-            'database' => 'agenciainflue2'
+            'host' => 'sql10.freemysqlhosting.net',
+            'bd' => 'sql10342384',
+            'usuario' => 'sql10342384',
+            'senha' => 'ZS5ktuinVb'           
         )
     );
     
     public function conectarESelecionar() 
     {
-
         $this->conectar();
-        $this->selectDb();
-    }  
+        $this->selecionarDB();
+    }
+
+    public function selecionarDB() 
+    {
+        mysqli_select_db($this->conexao, $this->settings['database']['bd']);
+    }    
 
     public function conectar()
     {
         $settings = $this->settings;
-        
+
         $this->conexao = mysqli_connect(
             $settings['database']['host'],
-            $settings['database']['login'],
-            $settings['database']['password']
+            $settings['database']['usuario'],
+            $settings['database']['senha']
         );
     }
     
-    public function selectDb()
+    public function query($sql) 
     {
-        $settings = $this->settings;
+        $query = mysqli_query($sql);
+        return mysqli_fetch_array($query);
+    }    
 
-        mysqli_select_db($settings['database']['database'], $this->conexao);
+    public function getConexao() 
+    {
+        return $this->conexao;
     }
 }
