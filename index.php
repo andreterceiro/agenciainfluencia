@@ -32,7 +32,11 @@ if ((isset($_POST['cmdEnviar'])) && $_POST['cmdEnviar'] == "Enviar") {
             $baseView->render("/clientes/formulario");
         }
     } catch (Exception $e) {
-        $baseView->set("erro", $e->getMessage());
+        $baseView->set(
+           "dadosPostados",
+   	   $_POST
+        );
+        $baseView->set("erro", array($e->getMessage()));
         $baseView->render("/clientes/formulario");
     }
 } elseif ( (isset($_POST['cmdEnviar'])) && ($_POST['cmdEnviar'] == "Cadastrar") )  {
