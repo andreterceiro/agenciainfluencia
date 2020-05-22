@@ -10,14 +10,28 @@ if ((isset($_POST['cmdEnviar'])) && $_POST['cmdEnviar'] == "Enviar") {
         $cliente->setNis($_POST['nis']);
         $erro[] = $cliente->setTelefone($_POST['telefone']);
         $erro[] = $cliente->setEmail($_POST['email']);
-        $erro[] = $cliente->gravar($_POST);
     	
-        if (emptyArray($erro)) {
-            $baseView->set(
-                "clientes",
-   	        $cliente->consultarTodos()
-            );
-            $baseView->render("/clientes/listagem");
+        if (emptyarray($erro)) {
+            $erro[] = $cliente->gravar($_POST);
+
+            if (emptyarray($erro)) {
+                $baseView->set(
+                    "clientes",
+      	            $cliente->consultarTodos()
+                );
+                $baseView->render("/clientes/listagem");
+            } else {
+                $baseView->set(
+                    "erro",
+      	            $erro
+                );
+            
+                $baseView->set(
+                    "dadosPostados",
+     	            $_POST
+                );
+                $baseView->render("/clientes/formulario");
+            }
         } else {
             $baseView->set(
                 "erro",
