@@ -25,7 +25,7 @@ function carregarModel($model)
     require_once $diretorioLib . "/../model/" . $model . "Model.php";
 }
 
-function erroStringParaAlert($erros)
+function erroStringParaAlert(array $erros)
 {
     $erroEncontrado = '';
 
