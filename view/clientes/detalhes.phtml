@@ -1,6 +1,9 @@
 <?php
 global $baseView;
 
+$layout = $baseView->get('layout');
+$baseView->render($layout['cabecalho'], false);
+
 $cliente = mysqli_fetch_array($baseView->get('cliente'));
 ?>
 <div>Nome: <?php echo $cliente['nome'] ?></div>
@@ -13,3 +16,6 @@ $cliente = mysqli_fetch_array($baseView->get('cliente'));
     <input type="submit" name="cmdEnviar" value="Listagem" />&nbsp;
     <input type="submit" name="cmdEnviar" value="Cadastrar" />
 </form>
+
+<?php
+$baseView->render($layout['rodape'], false);
