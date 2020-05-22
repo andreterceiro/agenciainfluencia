@@ -1,6 +1,9 @@
 <?php
 global $baseView;
 
+$layout = $baseView->get('layout');
+$baseView->render($layout['cabecalho'], false);
+ 
 $clientes = $baseView->get('clientes');
 if (empty($clientes)) {
 ?>
@@ -36,7 +39,7 @@ if (empty($clientes)) {
                 <td><?php echo $cliente["nis"]; ?></td>
                 <td><?php echo $cliente["email"]; ?></td>
                 <td><?php echo $cliente["telefone"]; ?></td>
-                <td><a href="detalhes?id=<?php echo $cliente['id']; ?>">Detalhes</a></td>
+                <td><a href="?id=<?php echo $cliente['id']; ?>">Detalhes</a></td>
            </tr>
     <?php
         }
@@ -46,3 +49,5 @@ if (empty($clientes)) {
 <form method="post">
     <input type="submit" name="cmdEnviar" value="Cadastrar" />
 </form>
+<?php
+$baseView->render($layout['rodape'], false);
