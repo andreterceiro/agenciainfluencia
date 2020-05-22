@@ -86,15 +86,16 @@ class ClienteModel extends BaseModel
 
     public function setNis($nis)
     {
-        global $registry;
-
-        $cURL = curl_init();
-        curl_setopt($cURL, CURLOPT_URL, "https://www.nif.pt/?json=1&q=" . $nis . "&key=" . $registry->get('apiKeyNis'));
-        curl_setopt($cURL, CURLOPT_RETURNTRANSFER, true); 
-        $resultadoConsulta = json_decode(curl_exec($cURL));  
-        curl_close($cURL);
-        if ($resultadoConsulta->result != 'success') {
-            throw new InvalidArgumentException("A validação do NIS falhou. O retorno foi '" . $resultadoConsulta->message . "'"); 
+        if (! empty($nis)) {
+            global $registry;
+            $cURL = curl_init();
+            curl_setopt($cURL, CURLOPT_URL, "https://www.nif.pt/?json=1&q=" . $nis . "&key=" . $registry->get('apiKeyNis'));
+            curl_setopt($cURL, CURLOPT_RETURNTRANSFER, true); 
+            $resultadoConsulta = json_decode(curl_exec($cURL));  
+            curl_close($cURL);
+            if ($resultadoConsulta->result != 'success') {
+                throw new InvalidArgumentException("A validação do NIS falhou. O retorno foi '" . $resultadoConsulta->message . "'"); 
+            }
         }
          
         $this->nis = $nis;
