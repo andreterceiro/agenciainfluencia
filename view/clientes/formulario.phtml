@@ -2,6 +2,9 @@
     global $baseView;
     $erro = $baseView->get('erro');
     $dadosPostados = $baseView->get('dadosPostados');
+
+    $layout = $baseView->get('layout');
+    $baseView->render($layout['cabecalho'], false);
  
     if (isset($erro)) {
     	$erro = erroStringParaAlert($erro);
@@ -55,3 +58,5 @@
         </div>
     </div>
 </form>
+<?php
+$baseView->render($layout['rodape'], false);
