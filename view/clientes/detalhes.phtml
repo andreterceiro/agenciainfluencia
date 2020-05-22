@@ -1,0 +1,15 @@
+<?php
+global $baseView;
+
+$cliente = mysqli_fetch_array($baseView->get('cliente'));
+?>
+<div>Nome: <?php echo $cliente['nome'] ?></div>
+<div>NIS: <?php echo $cliente['nis']; ?></div>
+<div>E-mail: <?php echo $cliente['email']; ?></div>
+<div>Telefone: <?php echo $cliente['telefone']; ?></div>
+
+<hr />
+<form method="post" action="/">
+    <input type="submit" name="cmdEnviar" value="Listagem" />&nbsp;
+    <input type="submit" name="cmdEnviar" value="Cadastrar" />
+</form>

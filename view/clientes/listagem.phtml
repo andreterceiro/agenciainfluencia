@@ -1,0 +1,48 @@
+<?php
+global $baseView;
+
+$clientes = $baseView->get('clientes');
+if (empty($clientes)) {
+?>
+    <head>    
+        <head>
+            <script>
+                alert("Não há clientes");
+            </script>
+        </head>
+        <body>
+            <form method="post">
+               <input type="submit" name="cmdEnviar" value="Cadastrar" />
+            </form>
+        </body>
+    </html>
+<?php
+    exit;
+}
+?>
+<table border="1" cellpadding="3">
+    <tr>
+        <th>Nome</th>
+        <th>NIS</th>
+        <th>E-mail</th>
+        <th>Telefone</th>
+        <th>Detalhes</th>
+    </tr>
+    <?php
+        while ($cliente = mysqli_fetch_array($clientes)) {
+    ?>
+            <tr>
+                <td><?php echo $cliente["nome"]; ?></td>
+                <td><?php echo $cliente["nis"]; ?></td>
+                <td><?php echo $cliente["email"]; ?></td>
+                <td><?php echo $cliente["telefone"]; ?></td>
+                <td><a href="detalhes?id=<?php echo $cliente['id']; ?>">Detalhes</a></td>
+           </tr>
+    <?php
+        }
+    ?>
+</table>
+<hr />
+<form method="post">
+    <input type="submit" name="cmdEnviar" value="Cadastrar" />
+</form>
