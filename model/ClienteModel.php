@@ -8,6 +8,21 @@ class ClienteModel extends BaseModel
     private $email;
     private $telefone;
 
+    public function __construct()
+    {
+        parent::__construct('clientes');
+    }
+
+    public function consultarTodos($tabela = 'clientes') 
+    {
+        return parent::consultarTodos($tabela);
+    }
+
+    public function consultar($id, $tabela="clientes") 
+    {
+        return parent::consultar($id, $tabela);
+    }
+
     public function getNome()
     {
         return $this->nome;    
@@ -15,7 +30,11 @@ class ClienteModel extends BaseModel
 
     public function setNome($nome)
     {
-        $this->nome = $nome;
+         $this->nome = $nome;
+
+         if (empty($nome)) {
+             return "O nome deve ser preenchido";
+         }
     }
 
     public function getTelefone()
@@ -26,8 +45,11 @@ class ClienteModel extends BaseModel
     public function setTelefone($telefone)
     {
         $this->telefone = $telefone;
+         
+        if (empty($telefone)) {
+             return "O telefone deve ser preenchido";
+         }
     }
-
     public function getEmail()
     {
         return $this->email;
@@ -35,23 +57,26 @@ class ClienteModel extends BaseModel
 
     public function setEmail($email) 
     {
-        $posicaoArroba = strpos("@", $email);
-        if ($posicaoArroba < 1) {
-            throw new InvalidArgumentException("O e-mail não tem @ no lugar certo");
-        }
+        if (empty($email)) {
+            return "O e-mail deve ser preechido"; 
+	} else {
+           $posicaoArroba = strpos($email, "@");
+           if ($posicaoArroba < 1) {
+               return "O e-mail não tem @ no lugar certo";
+           } else {
+               $posicaoPrimeiroPonto = strpos ($email, ".");
+               if ($posicaoPrimeiroPonto < $posicaoArroba) {
+                    return "O e-mail não tem . no lugar certo";
+               } else {
+                   $posicaoSegundoPonto = strpos($email, ".", $posicaoPrimeiroPonto);
+                   if ($posicaoPrimeiroPonto < $posicaoSegundoPonto) {
+                       return "O e-mail não tem . no lugar certo";
+                   }
+               }
+           }
 
-        $posicaoPrimeiroPonto = strpos(".", $email);
-        if ($posicaoPrimeiroPonto < $posicaoArroba) {
-            throw new InvalidArgumentException("O e-mail não tem . no lugar certo");
+           $this->email = $email;
         }
-        
-        $posicaoSegundoPonto = strpos(".", $email, $primeiroPonto);
-        if ($posicaoPrimeiroPonto < $posicaoSegundoPonnto) {
-            throw new InvalidArgumentException("O e-mail não tem . no lugar certo");
-        }
-        
-
-        $this->email = $email;
     }
 
     public function getNis()
@@ -62,6 +87,11 @@ class ClienteModel extends BaseModel
     public function setNis($nis)
     {
         $this->nis = $nis;
+    }
+
+    public function gravar($dados, $tabelaClientes="clientes")
+    {
+        return parent::gravar($dados, $tabelaClientes);
     }
 }
 
