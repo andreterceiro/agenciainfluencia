@@ -1,5 +1,18 @@
 <?php
-class Registry{
+class Registry
+{
+    private static $singleton;
+
+    function __construct()
+    {  
+        if (isset(self::$singleton)) {
+            return self::$singleton;    
+        }
+
+        self::$singleton = $this;
+        $_SESSION['registry'] = array();
+    }
+
     /**
      * Seta uma chave (com seu valor) no registry
      *
@@ -8,26 +21,33 @@ class Registry{
      *
      * @return null
      */
-    public static function set($chave, $valor)
+    public function set($chave, $valor)
     {
-        $_SESSION['registry'][$chave] = $valor;
+        global $registro;
+        $registro[$chave] = $valor;
     }
-
     /**
      * Retorna o valor de uma chave (com seu valor) do registry
      *
-     * @param $string $chave Chave a ser obtida
-     *
-     * @throws InvalodArgumentException Se a chavfe não for encontrada
-     *
+     * @param string  $chave Chave a ser obtida
+     * @param boolean $exceptionParaChaveNaoEncontrada Se true lança uma exception se a chave não for encontrada
+     *a
      * @return mixed O valor relacionado à chave
      */
-    public function get($chave) 
+    public function get($chave, $exceptionParaChaveNaoEncontrada = false) 
     {
-        if (isset($_SESSION['registry'][$chave])) {
-            return $_SESSION['registry'][$chave];
+        global $registro;
+ 
+        if (! is_string($chave)) {
+            throw new InvalidArgumentException('A chave deve ser uma string');
         }
 
-        throw new InvalidArgumentException('A chave  ' . $chave . ' não foi encontrada');
+        if (array_key_exists($chave, $registro)) {
+            return $registro[$chave];
+        }
+
+       if ($exceptionParaChaveNaoEncontrada) {
+           throw new InvalidArgumentException('A chave ' . $chave . ' não foi encontrada');
+       }
     }
 }
