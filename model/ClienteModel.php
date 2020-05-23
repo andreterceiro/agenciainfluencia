@@ -73,6 +73,11 @@ class ClienteModel extends BaseModel
                        return "O e-mail não tem . no lugar certo";
                    }
                }
+               
+               $ultimoCaracter = mb_substr($email, -1, 1);
+               if ($ultimoCaracter == "." || $ultimoCaracter == "@") {
+                   return "O e-mail não deve terminar em '.' ou '@'";
+               }
            }
 
            $this->email = $email;
