@@ -1,4 +1,17 @@
+<?php
+    global $baseView;
+?>
 <html>
     <head>
+        <script src="/public/javascripts/jquery.min.js" /></script>
+        <script src="/public/javascripts/configuracoes.js" /></script>
+        <script src="/public/javascripts/funcoes.js" /></script>
+        <?php
+            foreach ($baseView->getJavascriptsExtras() as $enderecoJavascriptExtra) {
+       ?>
+                <script src='<?php echo $enderecoJavascriptExtra; ?>'></script> 
+       <?php 
+            }
+       ?>
     </head>
     <body>

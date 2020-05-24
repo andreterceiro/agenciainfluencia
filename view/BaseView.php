@@ -1,6 +1,11 @@
 <?php
 class BaseView 
 {
+    private $cabecalhosExtras = array(
+        'javascripts' => array(),
+        'css' => array()
+    );
+ 
     public function render($view, $exit = true)
     {
         $view = $view . ".phtml";
@@ -28,11 +33,54 @@ class BaseView
             'view/' . $chave,
              $valor
        );
-   }
+    }
 
-   public function get($chave)
-   {
-       $registry = new Registry;
-       return $registry->get('view/' . $chave);
-   }
+    public function get($chave)
+    {
+        $registry = new Registry;
+        return $registry->get('view/' . $chave);
+    }
+
+    public function setCabecalhosExtras(array $cabecalhos)  
+    {
+        $this->cabecalhosExtras = $cabecalhos;
+    }
+ 
+    public function addCabecalhosExtras(array $cabecalhos)  
+    {
+        $this->cabecalhosExtras = array_push($cabecalhos);
+    }
+
+    public function getCabecalhosExtras()
+    {
+        return $this->cabecalhosExtras;
+    }
+   
+    public function setJavascriptsExtras(array $cabecalhos)
+    {
+        $itens = array();
+        foreach ($cabecalhos as $cabecalho) {
+            array_push($itens, 'public/javascripts/' . $cabecalho . ".js");
+        }
+
+        $this->cabecalhosExtras['javascripts'] = $itens;
+    }
+ 
+    public function addJavascriptsExtras(array $cabecalhos)  
+    {
+        $itens = array();
+        foreach ($cabecalhos as $cabecalho) {
+            array_push($itens, 'public/javascripts/' . $cabecalho . ".js");
+        }
+
+        array_push(
+            $this->cabecalhosExtras['javascripts'],
+            $itens
+        );
+    }
+
+    public function getJavascriptsExtras()
+    {
+        return $this->cabecalhosExtras['javascripts'];
+    }
 }
