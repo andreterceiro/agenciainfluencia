@@ -13,5 +13,13 @@
        <?php 
             }
        ?>
+
+        <?php
+            foreach ($baseView->getCSSExtras() as $enderecoCSSExtra) {
+       ?>
+                <link href='<?php echo $enderecoCSSExtra; ?>' rel="stylesheet" type="text/css" />
+       <?php 
+            }
+       ?>
     </head>
     <body>

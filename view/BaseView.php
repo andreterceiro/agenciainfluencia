@@ -83,4 +83,32 @@ class BaseView
     {
         return $this->cabecalhosExtras['javascripts'];
     }
+
+    public function setCSSExtras(array $cabecalhos)
+    {
+        $itens = array();
+        foreach ($cabecalhos as $cabecalho) {
+            array_push($itens, 'public/css/' . $cabecalho . ".css");
+        }
+
+        $this->cabecalhosExtras['css'] = $itens;
+    }
+ 
+    public function addCSSExtras(array $cabecalhos)  
+    {
+        $itens = array();
+        foreach ($cabecalhos as $cabecalho) {
+            array_push($itens, 'public/css/' . $cabecalho . ".css");
+        }
+
+        array_push(
+            $this->cabecalhosExtras['css'],
+            $itens
+        );
+    }
+
+    public function getCSSExtras()
+    {
+        return $this->cabecalhosExtras['css'];
+    }
 }
