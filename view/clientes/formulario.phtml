@@ -4,6 +4,9 @@
     $dadosPostados = $baseView->get('dadosPostados');
 
     $layout = $baseView->get('layout');
+    $baseView->setJavascriptsExtras(array(
+         'clientes/formulario'
+    ));
     $baseView->render($layout['cabecalho'], false);
  
     if (isset($erro)) {
@@ -29,7 +32,7 @@
             NIS:
         </div>
         <div>
-            <input type="text" name="nis" value="<?php if (isset($dadosPostados['nis'])) echo $dadosPostados['nis']; ?>" />
+            <input type="text" name="nis" id="nis" value="<?php if (isset($dadosPostados['nis'])) echo $dadosPostados['nis']; ?>" />
         </div>
     </div>
     <div>
