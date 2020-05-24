@@ -7,6 +7,9 @@
     $baseView->setJavascriptsExtras(array(
          'clientes/formulario'
     ));
+    $baseView->setCSSExtras(array(
+         'clientes/formulario'
+    ));
     $baseView->render($layout['cabecalho'], false);
  
     if (isset($erro)) {
@@ -33,6 +36,7 @@
         </div>
         <div>
             <input type="text" name="nis" id="nis" value="<?php if (isset($dadosPostados['nis'])) echo $dadosPostados['nis']; ?>" />
+            <span class="mensagemErroNIS">NIS inv&aacute;lido!</span>
         </div>
     </div>
     <div>
